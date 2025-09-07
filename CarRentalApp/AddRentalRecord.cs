@@ -79,20 +79,18 @@ namespace CarRentalApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            var cars = carRentalEntities.TypesOfCars.ToList();
+            //var cars = carRentalEntities.TypesOfCars.ToList();
+            var cars =  carRentalEntities.TypesOfCars
+                .Select(q => new
+                {
+                    id = q.id,
+                    Name = q.Make + " " + q.Model
+                })
+                .ToList();
             cbCarSelected.DisplayMember = "Name";
             cbCarSelected.ValueMember = "id";
             cbCarSelected.DataSource = cars;
         }
 
-        private void lauchButton_Click(object sender, EventArgs e)
-        {
-            
-            if (MainWindow.InstanceCount < 1) 
-            {
-                var mainWindow = new MainWindow();
-                mainWindow.Show();
-            }
-        }
     }
 }
